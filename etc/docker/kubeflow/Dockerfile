@@ -68,6 +68,9 @@ RUN curl https://pyenv.run | bash
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 RUN echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+RUN echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+RUN echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 
 RUN pip install pipenv
 
