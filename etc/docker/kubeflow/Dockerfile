@@ -48,13 +48,25 @@ USER root
 RUN rm -f README.md ${ELYRA_PACKAGE}
 
 RUN apt-get update
-RUN apt install -y libopencv-dev libyaml-dev python3-opencv zsh gcc  g++ libffi-dev htop ffmpeg libsm6 libxext6 git poppler-utils ssh
+
+# port over tools from tljh and backend container
+RUN apt install -y libopencv-dev libyaml-dev python3-opencv zsh gcc g++ libffi-dev htop ffmpeg libsm6 libxext6 git poppler-utils ssh
+
 # pyenv needed tools
 RUN apt install -y build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev 
 
+# github cli
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg |  dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    &&  chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |  tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    &&  apt update \
+    &&  apt install gh -y
+
 USER jovyan
+
+ENV ZSH_DISABLE_COMPFIX=true
 
 # Install component examples catalog
 #  - this will fail if the 'kfp-examples' pip extra is not installed
