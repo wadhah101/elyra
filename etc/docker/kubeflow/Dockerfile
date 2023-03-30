@@ -48,11 +48,11 @@ USER root
 RUN rm -f README.md ${ELYRA_PACKAGE}
 
 RUN apt-get update
-RUN apt install -y libopencv-dev libyaml-dev python3-opencv zsh gcc  g++ libffi-dev htop ffmpeg libsm6 libxext6 git
+RUN apt install -y libopencv-dev libyaml-dev python3-opencv zsh gcc  g++ libffi-dev htop ffmpeg libsm6 libxext6 git poppler-utils ssh
 # pyenv needed tools
 RUN apt install -y build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
-    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev 
 
 USER jovyan
 
