@@ -46,6 +46,14 @@ RUN sed -i -e "s/# c.PipelineProcessorRegistry.runtimes = \[\]/c.PipelineProcess
 # Cleanup
 USER root
 RUN rm -f README.md ${ELYRA_PACKAGE}
+
+RUN apt-get update
+RUN apt install -y libopencv-dev libyaml-dev python3-opencv zsh gcc  g++ libffi-dev htop ffmpeg libsm6 libxext6 git
+# pyenv needed tools
+RUN apt install -y build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev curl \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
 USER jovyan
 
 # Install component examples catalog
@@ -55,3 +63,14 @@ RUN elyra-metadata create component-catalogs \
     --display_name="Kubeflow Pipelines examples" \
     --runtime_type=KUBEFLOW_PIPELINES \
     --categories="['examples']"
+
+RUN curl https://pyenv.run | bash
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+RUN echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+RUN pip install pipenv
+
+# oh my zsh with some plugin and theme powerlevel10k
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)" -- \
+    -p git -p python
