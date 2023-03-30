@@ -42,11 +42,11 @@ CONDA_ACTIVATE = source $$(conda info --base)/etc/profile.d/conda.sh ; conda act
 ELYRA_VERSION:=$$(grep __version__ elyra/_version.py | cut -d"\"" -f2)
 TAG:=dev
 IMAGE_IS_LATEST=False
-ELYRA_IMAGE=elyra/elyra:$(TAG)
-ELYRA_IMAGE_LATEST=elyra/elyra:latest
+ELYRA_IMAGE=wadhah101/elyra:$(TAG)
+ELYRA_IMAGE_LATEST=wadhah101/elyra:latest
 ELYRA_IMAGE_ENV?=elyra-image-env
-KF_NOTEBOOK_IMAGE=elyra/kf-notebook:$(TAG)
-KF_NOTEBOOK_IMAGE_LATEST=elyra/kf-notebook:latest
+KF_NOTEBOOK_IMAGE=wadhah101/kf-notebook:$(TAG)
+KF_NOTEBOOK_IMAGE_LATEST=wadhah101/kf-notebook:latest
 
 # Contains the set of commands required to be used by elyra
 REQUIRED_RUNTIME_IMAGE_COMMANDS?="curl python3"
